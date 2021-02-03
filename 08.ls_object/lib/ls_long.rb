@@ -13,7 +13,7 @@ class LsLong
     end
     max_lengths = find_max_text(files_detail)
     files_detail.each do |file|
-      formatted_for_display(file, *max_lengths)
+      puts formatted_for_display(file, *max_lengths)
     end
   end
 

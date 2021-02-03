@@ -7,7 +7,7 @@ require './lib/ls'
 
 terminal_width = `tput cols`.to_i
 opt = OptionParser.new
-params = { long_format: false, reverse: false, include_dot_file: false}
+params = { long_format: false, reverse: false, include_dot_file: false }
 opt.on('-a') { |v| params[:include_dot_file] = v }
 opt.on('-l') { |v| params[:long_format] = v }
 opt.on('-r') { |v| params[:reverse] = v }

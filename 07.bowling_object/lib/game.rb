@@ -32,25 +32,26 @@ class Game
   end
 
   def points_per_frame
-    frames = frames_to_class
-    points = []
-    frames.each.with_index(1) do |frame, index|
-      points << if frame.strike? && !last_frame?(frames, index)
-                  frame.score + add_strike_bonus(frames, index)
-                elsif frame.spare? && !last_frame?(frames, index)
-                  frame.score + add_spare_bonus(frames, index)
-                else
-                  frame.score
-                end
+    frames_to_class.map.with_index(1) do |frame, index|
+      calc_frame_score(frames_to_class, frame, index)
     end
-    points
   end
-
+  
   def score
     points_per_frame.sum
   end
 
   private
+
+  def calc_frame_score(frames, frame, index)
+    if frame.strike? && !last_frame?(frames, index)
+      frame.score + add_strike_bonus(frames, index)
+    elsif frame.spare? && !last_frame?(frames, index)
+      frame.score + add_spare_bonus(frames, index)
+    else
+      frame.score
+    end
+  end
 
   def last_frame?(frames, frame_number)
     frames.size == frame_number

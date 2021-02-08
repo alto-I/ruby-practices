@@ -20,6 +20,6 @@ class Frame
   end
 
   def spare?
-    @first_shot + @second_shot == 10 && @first_shot != 10
+    @first_shot + @second_shot == 10 && !strike?
   end
 end

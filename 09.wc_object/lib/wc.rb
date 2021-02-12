@@ -3,29 +3,29 @@
 class Wc
   attr_reader :filenames, :text, :line_number_only
 
-  def initialize(filenames: '', text: [], line_number_only: false)
+  def initialize(filenames: '', text: '', line_number_only: false)
     @filenames = filenames
     @text = text
     @line_number_only = line_number_only
   end
 
   def output
-    counts_values = counts_per_file(@filenames, @text)
+    counts_values = counts_per_file
     counts_values << total_counts_line(counts_values) if counts_values.size > 1
     lines = counts_values.map do |counts_value|
-      line_number_only ? format_only_line(counts_value) : format(counts_value)
+      @line_number_only ? format_only_line(counts_value) : format(counts_value)
     end
     lines.join("\n")
   end
 
   private
 
-  def counts_per_file(files, text)
-    if files.empty?
-      [calc_text(nil, text)]
+  def counts_per_file
+    if @filenames.empty?
+      [calc_text(nil, @text)]
     else
-      files.map do |file|
-        directory?(file) ? { filename: "wc: #{file}: read: Is a directory" } : calc_text(file, Pathname(file).read)
+      @filenames.map do |filename|
+        directory?(filename) ? { filename: "wc: #{filename}: read: Is a directory" } : calc_text(filename, Pathname(filename).read)
       end
     end
   end
@@ -64,16 +64,14 @@ class Wc
 
   def total_counts_line(counts)
     total_line = { filename: ' total' }
-    %i[line word byte].map do |key|
+    %i[line word byte].each do |key|
       total_line[key] = prepare_for_display(total_counts(key, counts))
     end
     total_line
   end
 
   def total_counts(key, counts)
-    counts.map do |count|
-      count[key].to_i
-    end.sum
+    counts.map { |count| count[key].to_i }.sum
   end
 
   def format_only_line(size)

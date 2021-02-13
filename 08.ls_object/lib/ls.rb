@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
-require_relative './ls_long'
-require_relative './ls_short'
 require 'etc'
+require 'pathname'
+require_relative 'ls_long'
+require_relative 'ls_short'
 
 class Ls
   attr_reader :pathname, :terminal_width, :long_format, :reverse, :include_dot_file
 
-  def initialize(pathname, terminal_width = 120, long_format: false, reverse: false, include_dot_file: false)
-    @pathname = pathname
+  def initialize(pathname: Pathname('.'), terminal_width: 120, long_format: false, reverse: false, include_dot_file: false)
+    @pathname = Pathname(pathname)
     @terminal_width = terminal_width
     @long_format = long_format
     @reverse = reverse

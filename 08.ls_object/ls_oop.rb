@@ -2,8 +2,7 @@
 # frozen_string_literal: true
 
 require 'optparse'
-require 'pathname'
-require './lib/ls'
+require_relative 'lib/ls'
 
 terminal_width = `tput cols`.to_i
 opt = OptionParser.new
@@ -12,8 +11,9 @@ opt.on('-a') { |v| params[:include_dot_file] = v }
 opt.on('-l') { |v| params[:long_format] = v }
 opt.on('-r') { |v| params[:reverse] = v }
 opt.parse!(ARGV)
-path = ARGV[0] || '.'
-pathname = Pathname(path)
-
-ls = Ls.new(pathname, terminal_width, **params)
+if ARGV[0].nil?
+  ls = Ls.new(terminal_width: terminal_width, **params)
+else
+  ls = Ls.new(pathname: ARGV[0], terminal_width: terminal_width, **params)
+end
 ls.output

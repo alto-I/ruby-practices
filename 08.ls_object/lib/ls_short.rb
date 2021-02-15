@@ -8,7 +8,7 @@ class LsShort
     @terminal_width = terminal_width
   end
 
-  def run
+  def call
     files_format(basenames, lines, max_filename_length)
   end
 
@@ -28,7 +28,7 @@ class LsShort
     (basenames.size / column.to_f).ceil
   end
 
-  def files_format(filelist, lines, max_filename_length)
+  def files_format(filelist, lines, _max_filename_length)
     files_matrix = filelist.each_slice(lines).map { |file| file }
     (lines - files_matrix.last.size).times do
       files_matrix.last.push ''
@@ -39,7 +39,7 @@ class LsShort
     end.join("\n")
   end
 
-  def format_lines(files, index)
+  def format_lines(files, _index)
     files.map do |file|
       file.ljust(max_filename_length + 1)
     end.join.rstrip

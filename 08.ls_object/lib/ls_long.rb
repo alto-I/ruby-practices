@@ -7,12 +7,12 @@ class LsLong
     @files = files
   end
 
-  def run
+  def call
     files_detail = @files.each.map do |file|
       build_file_data(file)
     end
     max_lengths = find_max_text(files_detail)
-    total = files_detail.map do |file| 
+    total = files_detail.map do |file|
       file[:block].to_i
     end.sum
     total_line = "total #{total}"
@@ -100,7 +100,7 @@ class LsLong
       "  #{file[:size].rjust(size_max_length)}",
       " #{file[:timestamp]}",
       " #{file[:file]}",
-      "#{file[:linked_file]}"
+      (file[:linked_file]).to_s
     ].join
   end
 end

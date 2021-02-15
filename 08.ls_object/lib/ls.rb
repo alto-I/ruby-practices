@@ -18,8 +18,8 @@ class Ls
 
   def output
     files = files_according_to_options
-    display_files = long_format ? LsLong.new(files): LsShort.new(files, terminal_width)
-    display_files.run
+    display_files = long_format ? LsLong.new(files) : LsShort.new(files, terminal_width)
+    display_files.call
   end
 
   private

@@ -12,9 +12,14 @@ class LsLong
       build_file_data(file)
     end
     max_lengths = find_max_text(files_detail)
-    files_detail.each do |file|
-      puts formatted_for_display(file, *max_lengths)
+    total = files_detail.map do |file| 
+      file[:block].to_i
+    end.sum
+    total_line = "total #{total}"
+    body = files_detail.map do |file|
+      formatted_for_display(file, *max_lengths)
     end
+    [total_line, *body].join("\n")
   end
 
   private
@@ -29,7 +34,8 @@ class LsLong
       size: File.lstat(file).size.to_s,
       timestamp: timestamp(file),
       file: File.basename(file),
-      linked_file: linked_file(file)
+      linked_file: linked_file(file),
+      block: File.lstat(file).blocks.to_i
     }
   end
 
@@ -72,7 +78,7 @@ class LsLong
   end
 
   def linked_file(file)
-    "-> #{File.readlink(file)}" if filetypes(file) == 'l'
+    " -> #{File.readlink(file)}" if filetypes(file) == 'l'
   end
 
   def find_max_text(files)
@@ -94,7 +100,7 @@ class LsLong
       "  #{file[:size].rjust(size_max_length)}",
       " #{file[:timestamp]}",
       " #{file[:file]}",
-      " #{file[:linked_file]}"
+      "#{file[:linked_file]}"
     ].join
   end
 end

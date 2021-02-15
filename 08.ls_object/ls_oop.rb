@@ -4,7 +4,8 @@
 require 'optparse'
 require_relative 'lib/ls'
 
-terminal_width = `tput cols`.to_i
+terminal_width = 1
+# `tput cols`.to_i
 opt = OptionParser.new
 params = { long_format: false, reverse: false, include_dot_file: false }
 opt.on('-a') { |v| params[:include_dot_file] = v }

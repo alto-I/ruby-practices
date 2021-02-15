@@ -22,99 +22,102 @@ class LsCommandOopTest < Minitest::Test
     assert_equal expected, ls.output
   end
 
-  # def test_call_width_72
-  #   ls = Ls.new(pathname: SAMPLE_PATH, terminal_width: 72)
-  #   expected = <<~TEXT.chomp
-  #     Afdsfdg.b           cal_nt.rb           limit.rb            taiyaki.rb
-  #     FizzBuzz.rb         calpre.rb           ls.rb               test
-  #     FizzBuzz_case.rb    dummy               max.rb              test.rb
-  #     Rakefile            env_read.rb         name.rb             twc.rb
-  #     a                   faker.rb            numericinspector.rb unit_minitest.rb
-  #     and_method.rb       filetest.rb         q.txt               unittest.rb
-  #     argv.rb             fizi.rb             range.rb            unittest2.rb
-  #     attr_accessor.rb    flexmock.rb         sample_rspec.rb     wc.rb
-  #     b                   hello-rake.txt      sample_unittest.rb
-  #     bowling.rb          hello.rb            score.rb
-  #     cal.rb              hellolink.rb        srcdist
-  #   TEXT
-  #   assert_equal expected, ls.output
-  # end
+  def test_call_width_72
+    ls = Ls.new(pathname: SAMPLE_PATH, terminal_width: 72)
+    expected = <<~TEXT.chomp
+      Afdsfdg.b           env_read.rb         range.rb
+      FizzBuzz.rb         faker.rb            sample_rspec.rb
+      FizzBuzz_case.rb    filetest.rb         sample_unittest.rb
+      Rakefile            fizi.rb             score.rb
+      a                   flexmock.rb         srcdist
+      and_method.rb       hello-rake.txt      taiyaki.rb
+      argv.rb             hello.rb            test
+      attr_accessor.rb    hellolink.rb        test.rb
+      b                   limit.rb            twc.rb
+      bowling.rb          ls.rb               unit_minitest.rb
+      cal.rb              max.rb              unittest.rb
+      cal_nt.rb           name.rb             unittest2.rb
+      calpre.rb           numericinspector.rb wc.rb
+      dummy               q.txt
+    TEXT
+    assert_equal expected, ls.output
+  end
 
-  # def test_call_width_36
-  #   ls = Ls.new(pathname: SAMPLE_PATH, terminal_width: 36)
-  #   expected = <<~TEXT.chomp
-  #     Afdsfdg.b           hellolink.rb
-  #     FizzBuzz.rb         limit.rb
-  #     FizzBuzz_case.rb    ls.rb
-  #     Rakefile            max.rb
-  #     a                   name.rb
-  #     and_method.rb       numericinspector.rb
-  #     argv.rb             q.txt
-  #     attr_accessor.rb    range.rb
-  #     b                   sample_rspec.rb
-  #     bowling.rb          sample_unittest.rb
-  #     cal.rb              score.rb
-  #     cal_nt.rb           srcdist
-  #     calpre.rb           taiyaki.rb
-  #     dummy               test
-  #     env_read.rb         test.rb
-  #     faker.rb            twc.rb
-  #     filetest.rb         unit_minitest.rb
-  #     fizi.rb             unittest.rb
-  #     flexmock.rb         unittest2.rb
-  #     hello-rake.txt      wc.rb
-  #     hello.rb
-  #   TEXT
-  #   assert_equal expected, ls.output
-  # end
+  def test_call_width_36
+    ls = Ls.new(pathname: SAMPLE_PATH, terminal_width: 40)
+    expected = <<~TEXT.chomp
+      Afdsfdg.b           hellolink.rb
+      FizzBuzz.rb         limit.rb
+      FizzBuzz_case.rb    ls.rb
+      Rakefile            max.rb
+      a                   name.rb
+      and_method.rb       numericinspector.rb
+      argv.rb             q.txt
+      attr_accessor.rb    range.rb
+      b                   sample_rspec.rb
+      bowling.rb          sample_unittest.rb
+      cal.rb              score.rb
+      cal_nt.rb           srcdist
+      calpre.rb           taiyaki.rb
+      dummy               test
+      env_read.rb         test.rb
+      faker.rb            twc.rb
+      filetest.rb         unit_minitest.rb
+      fizi.rb             unittest.rb
+      flexmock.rb         unittest2.rb
+      hello-rake.txt      wc.rb
+      hello.rb
+    TEXT
+    assert_equal expected, ls.output
+  end
 
-  # def test_call_width_1
-  #   ls = Ls.new(pathname: SAMPLE_PATH, terminal_width: 1)
-  #   expected = <<~TEXT.chomp
-  #     Afdsfdg.b
-  #     FizzBuzz.rb
-  #     FizzBuzz_case.rb
-  #     Rakefile
-  #     a
-  #     and_method.rb
-  #     argv.rb
-  #     attr_accessor.rb
-  #     b
-  #     bowling.rb
-  #     cal.rb
-  #     cal_nt.rb
-  #     calpre.rb
-  #     dummy
-  #     env_read.rb
-  #     faker.rb
-  #     filetest.rb
-  #     fizi.rb
-  #     flexmock.rb
-  #     hello-rake.txt
-  #     hello.rb
-  #     hellolink.rb
-  #     limit.rb
-  #     ls.rb
-  #     max.rb
-  #     name.rb
-  #     numericinspector.rb
-  #     q.txt
-  #     range.rb
-  #     sample_rspec.rb
-  #     sample_unittest.rb
-  #     score.rb
-  #     srcdist
-  #     taiyaki.rb
-  #     test
-  #     test.rb
-  #     twc.rb
-  #     unit_minitest.rb
-  #     unittest.rb
-  #     unittest2.rb
-  #     wc.rb
-  #   TEXT
-  #   assert_equal expected, ls.output
-  # end
+  def test_call_width_1
+    ls = Ls.new(pathname: SAMPLE_PATH, terminal_width: 1)
+    expected = <<~TEXT.chomp
+      Afdsfdg.b
+      FizzBuzz.rb
+      FizzBuzz_case.rb
+      Rakefile
+      a
+      and_method.rb
+      argv.rb
+      attr_accessor.rb
+      b
+      bowling.rb
+      cal.rb
+      cal_nt.rb
+      calpre.rb
+      dummy
+      env_read.rb
+      faker.rb
+      filetest.rb
+      fizi.rb
+      flexmock.rb
+      hello-rake.txt
+      hello.rb
+      hellolink.rb
+      limit.rb
+      ls.rb
+      max.rb
+      name.rb
+      numericinspector.rb
+      q.txt
+      range.rb
+      sample_rspec.rb
+      sample_unittest.rb
+      score.rb
+      srcdist
+      taiyaki.rb
+      test
+      test.rb
+      twc.rb
+      unit_minitest.rb
+      unittest.rb
+      unittest2.rb
+      wc.rb
+    TEXT
+    assert_equal expected, ls.output
+  end
 
   # def test_call_ls_long_format
   #   ls = Ls.new(pathname: SAMPLE_PATH, long_format: true)
@@ -165,42 +168,42 @@ class LsCommandOopTest < Minitest::Test
   #   assert_equal expected, ls.output
   # end
 
-  # def test_call_ls_reverse
-  #   ls = Ls.new(pathname: SAMPLE_PATH, terminal_width: 80, reverse: true)
-  #   expected = <<~TEXT.chomp
-  #     wc.rb               sample_rspec.rb     flexmock.rb         attr_accessor.rb
-  #     unittest2.rb        range.rb            fizi.rb             argv.rb
-  #     unittest.rb         q.txt               filetest.rb         and_method.rb
-  #     unit_minitest.rb    numericinspector.rb faker.rb            a
-  #     twc.rb              name.rb             env_read.rb         Rakefile
-  #     test.rb             max.rb              dummy               FizzBuzz_case.rb
-  #     test                ls.rb               calpre.rb           FizzBuzz.rb
-  #     taiyaki.rb          limit.rb            cal_nt.rb           Afdsfdg.b
-  #     srcdist             hellolink.rb        cal.rb
-  #     score.rb            hello.rb            bowling.rb
-  #     sample_unittest.rb  hello-rake.txt      b
-  #   TEXT
-  #   assert_equal expected, ls.output
-  # end
+  def test_call_ls_reverse
+    ls = Ls.new(pathname: SAMPLE_PATH, terminal_width: 80, reverse: true)
+    expected = <<~TEXT.chomp
+      wc.rb               sample_rspec.rb     flexmock.rb         attr_accessor.rb
+      unittest2.rb        range.rb            fizi.rb             argv.rb
+      unittest.rb         q.txt               filetest.rb         and_method.rb
+      unit_minitest.rb    numericinspector.rb faker.rb            a
+      twc.rb              name.rb             env_read.rb         Rakefile
+      test.rb             max.rb              dummy               FizzBuzz_case.rb
+      test                ls.rb               calpre.rb           FizzBuzz.rb
+      taiyaki.rb          limit.rb            cal_nt.rb           Afdsfdg.b
+      srcdist             hellolink.rb        cal.rb
+      score.rb            hello.rb            bowling.rb
+      sample_unittest.rb  hello-rake.txt      b
+    TEXT
+    assert_equal expected, ls.output
+  end
 
-  # def test_call_ls_include_dot_file
-  #   ls = Ls.new(pathname: SAMPLE_PATH, terminal_width: 80, include_dot_file: true)
-  #   expected = <<~TEXT.chomp
-  #     .                   b                   hello.rb            srcdist
-  #     ..                  bowling.rb          hellolink.rb        taiyaki.rb
-  #     .DS_Store           cal.rb              limit.rb            test
-  #     .vscode             cal_nt.rb           ls.rb               test.rb
-  #     Afdsfdg.b           calpre.rb           max.rb              twc.rb
-  #     FizzBuzz.rb         dummy               name.rb             unit_minitest.rb
-  #     FizzBuzz_case.rb    env_read.rb         numericinspector.rb unittest.rb
-  #     Rakefile            faker.rb            q.txt               unittest2.rb
-  #     a                   filetest.rb         range.rb            wc.rb
-  #     and_method.rb       fizi.rb             sample_rspec.rb
-  #     argv.rb             flexmock.rb         sample_unittest.rb
-  #     attr_accessor.rb    hello-rake.txt      score.rb
-  #   TEXT
-  #   assert_equal expected, ls.output
-  # end
+  def test_call_ls_include_dot_file
+    ls = Ls.new(pathname: SAMPLE_PATH, terminal_width: 80, include_dot_file: true)
+    expected = <<~TEXT.chomp
+      .                   b                   hello.rb            srcdist
+      ..                  bowling.rb          hellolink.rb        taiyaki.rb
+      .DS_Store           cal.rb              limit.rb            test
+      .vscode             cal_nt.rb           ls.rb               test.rb
+      Afdsfdg.b           calpre.rb           max.rb              twc.rb
+      FizzBuzz.rb         dummy               name.rb             unit_minitest.rb
+      FizzBuzz_case.rb    env_read.rb         numericinspector.rb unittest.rb
+      Rakefile            faker.rb            q.txt               unittest2.rb
+      a                   filetest.rb         range.rb            wc.rb
+      and_method.rb       fizi.rb             sample_rspec.rb
+      argv.rb             flexmock.rb         sample_unittest.rb
+      attr_accessor.rb    hello-rake.txt      score.rb
+    TEXT
+    assert_equal expected, ls.output
+  end
 
   # def test_call_ls_all_options
   #   ls = Ls.new(pathname: SAMPLE_PATH, terminal_width: 80, long_format: true, reverse: true, include_dot_file: true)

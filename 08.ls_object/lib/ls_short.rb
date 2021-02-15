@@ -24,6 +24,7 @@ class LsShort
 
   def lines
     column = @terminal_width / (max_filename_length + 1)
+    column = 1 if column.zero?
     (basenames.size / column.to_f).ceil
   end
 

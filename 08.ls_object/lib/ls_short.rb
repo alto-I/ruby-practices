@@ -9,7 +9,7 @@ class LsShort
   end
 
   def call
-    files_format(basenames, lines, max_filename_length)
+    files_format(basenames, lines)
   end
 
   private
@@ -28,7 +28,7 @@ class LsShort
     (basenames.size / column.to_f).ceil
   end
 
-  def files_format(filelist, lines, _max_filename_length)
+  def files_format(filelist, lines)
     files_matrix = filelist.each_slice(lines).map { |file| file }
     (lines - files_matrix.last.size).times do
       files_matrix.last.push ''

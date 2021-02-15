@@ -16,4 +16,4 @@ if ARGV[0].nil?
 else
   ls = Ls.new(pathname: ARGV[0], terminal_width: terminal_width, **params)
 end
-ls.output
+puts ls.output

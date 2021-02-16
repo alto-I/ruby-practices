@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'minitest/autorun'
-require './ls_oop'
+require_relative 'ls_oop'
 
 SAMPLE_1 = <<~TEXT.chomp
   Afdsfdg.b           cal_nt.rb           limit.rb            taiyaki.rb

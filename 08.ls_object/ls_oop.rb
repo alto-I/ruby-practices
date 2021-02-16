@@ -11,9 +11,5 @@ opt.on('-a') { |v| params[:include_dot_file] = v }
 opt.on('-l') { |v| params[:long_format] = v }
 opt.on('-r') { |v| params[:reverse] = v }
 opt.parse!(ARGV)
-ls = if ARGV[0].nil?
-       Ls.new(terminal_width: terminal_width, **params)
-     else
-       Ls.new(pathname: ARGV[0], terminal_width: terminal_width, **params)
-     end
-puts ls.output
+path = ARGV[0] || '.'
+puts Ls.new(pathname: path, terminal_width: terminal_width, **params).output

@@ -34,12 +34,12 @@ class LsShort
       files_matrix.last.push ''
     end
     display_files = files_matrix.transpose
-    display_files.map.with_index do |files, i|
-      format_lines(files, i)
+    display_files.map do |files|
+      format_lines(files)
     end.join("\n")
   end
 
-  def format_lines(files, _index)
+  def format_lines(files)
     files.map do |file|
       file.ljust(max_filename_length + 1)
     end.join.rstrip

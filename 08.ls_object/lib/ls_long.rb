@@ -1,24 +1,18 @@
 # frozen_string_literal: true
 
 class LsLong
-  attr_reader :file
+  PERMISSION = ['---', '--x', '-w-', '-wx', 'r--', 'r-x', 'rw-', 'rwx'].freeze
 
   def initialize(files)
     @files = files
   end
 
   def call
-    files_detail = @files.each.map do |file|
-      build_file_data(file)
-    end
-    max_lengths = find_max_text(files_detail)
-    total = files_detail.map do |file|
-      file[:block].to_i
-    end.sum
+    file_details = @files.map { |f| build_file_data(f) }
+    max_lengths = max_lengths(file_details)
+    total = file_details.map.sum { |file| file[:block].to_i }
     total_line = "total #{total}"
-    body = files_detail.map do |file|
-      formatted_for_display(file, *max_lengths)
-    end
+    body = file_details.map { |file| formatted_for_display(file, *max_lengths) }
     [total_line, *body].join("\n")
   end
 
@@ -52,42 +46,21 @@ class LsLong
 
   def permissions(file)
     numbers = File.lstat(file).mode.to_s(8)[-3..-1].chars
-    permissions = []
-    numbers.each do |number|
-      permissions << permission(:"#{number}")
-    end
-    permissions.join
-  end
-
-  def permission(num)
-    {
-      '7': 'rwx',
-      '6': 'rw-',
-      '5': 'r-x',
-      '4': 'r--',
-      '3': '-wx',
-      '2': '-w-',
-      '1': '--x',
-      '0': '---'
-    }[num]
+    numbers.map { |n| PERMISSION[n.to_i] }.join
   end
 
   def timestamp(file)
-    timestamps = File.lstat(file).mtime
-    "#{timestamps.strftime('%-m').rjust(2)} #{timestamps.strftime('%e %H:%M')}"
+    timestamp = File.lstat(file).mtime
+    "#{timestamp.strftime('%-m').rjust(2)} #{timestamp.strftime('%e %H:%M')}"
   end
 
   def linked_file(file)
-    " -> #{File.readlink(file)}" if filetypes(file) == 'l'
+    FileTest.symlink?(file) ? " -> #{File.readlink(file)}" : ''
   end
 
-  def find_max_text(files)
+  def max_lengths(files)
     keys = %i[links user group size]
-    keys.map do |key|
-      files.map do |file|
-        file[key].size
-      end.max
-    end
+    keys.map { |key| files.map { |f| f[key].size }.max }
   end
 
   def formatted_for_display(file, links_max_length, user_max_length, group_max_length, size_max_length)
@@ -100,7 +73,7 @@ class LsLong
       "  #{file[:size].rjust(size_max_length)}",
       " #{file[:timestamp]}",
       " #{file[:file]}",
-      (file[:linked_file]).to_s
+      file[:linked_file]
     ].join
   end
 end

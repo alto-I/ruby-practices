@@ -29,10 +29,10 @@ class LsShort
   end
 
   def max_filename_length
-    @_max_filename_length ||= @basenames.max_by(&:length).size
+    @max_filename_length ||= @basenames.max_by(&:length).size
   end
 
   def format_lines(files)
-    files.map { |f| f.ljust(max_filename_length + 1)  }.join.rstrip
+    files.map { |f| f.ljust(max_filename_length + 1) }.join.rstrip
   end
 end

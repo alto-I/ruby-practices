@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class LsShort
-  attr_reader :file
-
   def initialize(files, terminal_width)
     @basenames = files.map { |file| File.basename(file) }
     @terminal_width = terminal_width

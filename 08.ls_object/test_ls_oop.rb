@@ -221,7 +221,7 @@ SAMPLE_8 = <<~TEXT.chomp
   -rw-r--r--    1 alto    staff           0  9 26 10:24 Afdsfdg.b
   drwxr-xr-x    3 alto    staff          96  1 19 12:52 .vscode
   -rw-r--r--    1 alto    staff        6148  2 11 14:00 .DS_Store
-  drwxr-xr-x  103 alto    staff        3296  2 15 19:13 ..
+  drwxr-xr-x  106 alto    staff        3392  3  6 18:28 ..
   drwxr-xr-x   45 alto    staff        1440  2 12 21:22 .
 TEXT
 

@@ -4,44 +4,35 @@ class LsShort
   attr_reader :file
 
   def initialize(files, terminal_width)
-    @files = files
+    @basenames = files.map { |file| File.basename(file) }
     @terminal_width = terminal_width
   end
 
   def call
-    files_format(basenames, lines)
-  end
-
-  private
-
-  def basenames
-    @files.map { |file| File.basename(file) }
-  end
-
-  def max_filename_length
-    basenames.max_by(&:length).size
-  end
-
-  def lines
-    column = @terminal_width / (max_filename_length + 1)
-    column = 1 if column.zero?
-    (basenames.size / column.to_f).ceil
-  end
-
-  def files_format(filelist, lines)
-    files_matrix = filelist.each_slice(lines).map { |file| file }
+    files_matrix = @basenames.each_slice(lines).map { |file| file }
     (lines - files_matrix.last.size).times do
       files_matrix.last.push ''
     end
     display_files = files_matrix.transpose
-    display_files.map do |files|
-      format_lines(files)
-    end.join("\n")
+    display_files.map { |f| format_lines(f) }.join(("\n"))
+  end
+
+  private
+
+  def lines
+    (@basenames.size / columns).ceil
+  end
+
+  def columns
+    cols = @terminal_width / (max_filename_length + 1)
+    cols.zero? ? 1.0 : cols.to_f
+  end
+
+  def max_filename_length
+    @_max_filename_length ||= @basenames.max_by(&:length).size
   end
 
   def format_lines(files)
-    files.map do |file|
-      file.ljust(max_filename_length + 1)
-    end.join.rstrip
+    files.map { |f| f.ljust(max_filename_length + 1)  }.join.rstrip
   end
 end

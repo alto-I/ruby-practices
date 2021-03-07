@@ -8,9 +8,9 @@ class LsLong
   end
 
   def call
-    file_details = @files.map { |f| build_file_data(f) }
+    file_details = @files.map { |file| build_file_data(file) }
     max_lengths = max_lengths(file_details)
-    total = file_details.map.sum { |file| file[:block].to_i }
+    total = file_details.sum { |file| file[:block].to_i }
     total_line = "total #{total}"
     body = file_details.map { |file| formatted_for_display(file, *max_lengths) }
     [total_line, *body].join("\n")
@@ -60,7 +60,7 @@ class LsLong
 
   def max_lengths(files)
     keys = %i[links user group size]
-    keys.map { |key| files.map { |f| f[key].size }.max }
+    keys.map { |key| files.map { |file| file[key].size }.max }
   end
 
   def formatted_for_display(file, links_max_length, user_max_length, group_max_length, size_max_length)

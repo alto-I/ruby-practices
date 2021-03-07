@@ -12,7 +12,7 @@ class LsShort
       files_matrix.last.push ''
     end
     display_files = files_matrix.transpose
-    display_files.map { |f| format_lines(f) }.join(("\n"))
+    display_files.map { |file| format_lines(file) }.join(("\n"))
   end
 
   private
@@ -31,6 +31,6 @@ class LsShort
   end
 
   def format_lines(files)
-    files.map { |f| f.ljust(max_filename_length + 1) }.join.rstrip
+    files.map { |file| file.ljust(max_filename_length + 1) }.join.rstrip
   end
 end

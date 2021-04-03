@@ -221,7 +221,7 @@ SAMPLE_8 = <<~TEXT.chomp
   -rw-r--r--    1 alto    staff           0  9 26 10:24 Afdsfdg.b
   drwxr-xr-x    3 alto    staff          96  1 19 12:52 .vscode
   -rw-r--r--    1 alto    staff        6148  2 11 14:00 .DS_Store
-  drwxr-xr-x  100 alto    staff        3200  4  2 12:32 ..
+  drwxr-xr-x  100 alto    staff        3200  4  3 07:47 ..
   drwxr-xr-x   45 alto    staff        1440  2 12 21:22 .
 TEXT
 
@@ -229,49 +229,49 @@ class LsCommandOopTest < Minitest::Test
   SAMPLE_PATH = Pathname('/Users/alto/bin/')
 
   def test_call_width80
-    ls = Ls.new(pathname: SAMPLE_PATH, terminal_width: 80)
+    ls = Ls::Command.new(pathname: SAMPLE_PATH, terminal_width: 80)
     expected = SAMPLE_1
     assert_equal expected, ls.output
   end
 
   def test_call_width72
-    ls = Ls.new(pathname: SAMPLE_PATH, terminal_width: 72)
+    ls = Ls::Command.new(pathname: SAMPLE_PATH, terminal_width: 72)
     expected = SAMPLE_2
     assert_equal expected, ls.output
   end
 
   def test_call_width36
-    ls = Ls.new(pathname: SAMPLE_PATH, terminal_width: 40)
+    ls = Ls::Command.new(pathname: SAMPLE_PATH, terminal_width: 40)
     expected = SAMPLE_3
     assert_equal expected, ls.output
   end
 
   def test_call_width1
-    ls = Ls.new(pathname: SAMPLE_PATH, terminal_width: 1)
+    ls = Ls::Command.new(pathname: SAMPLE_PATH, terminal_width: 1)
     expected = SAMPLE_4
     assert_equal expected, ls.output
   end
 
   def test_call_ls_long_format
-    ls = Ls.new(pathname: SAMPLE_PATH, long_format: true)
+    ls = Ls::Command.new(pathname: SAMPLE_PATH, long_format: true)
     expected = SAMPLE_5
     assert_equal expected, ls.output
   end
 
   def test_call_ls_reverse
-    ls = Ls.new(pathname: SAMPLE_PATH, terminal_width: 80, reverse: true)
+    ls = Ls::Command.new(pathname: SAMPLE_PATH, terminal_width: 80, reverse: true)
     expected = SAMPLE_6
     assert_equal expected, ls.output
   end
 
   def test_call_ls_include_dot_file
-    ls = Ls.new(pathname: SAMPLE_PATH, terminal_width: 80, include_dot_file: true)
+    ls = Ls::Command.new(pathname: SAMPLE_PATH, terminal_width: 80, include_dot_file: true)
     expected = SAMPLE_7
     assert_equal expected, ls.output
   end
 
   def test_call_ls_all_options
-    ls = Ls.new(pathname: SAMPLE_PATH, terminal_width: 80, long_format: true, reverse: true, include_dot_file: true)
+    ls = Ls::Command.new(pathname: SAMPLE_PATH, terminal_width: 80, long_format: true, reverse: true, include_dot_file: true)
     expected = SAMPLE_8
     assert_equal expected, ls.output
   end

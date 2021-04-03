@@ -12,4 +12,4 @@ opt.on('-l') { |v| params[:long_format] = v }
 opt.on('-r') { |v| params[:reverse] = v }
 opt.parse!(ARGV)
 path = ARGV[0] || '.'
-puts Ls.new(pathname: path, terminal_width: terminal_width, **params).output
+puts Ls::Command.new(pathname: path, terminal_width: terminal_width, **params).output
